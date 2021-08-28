@@ -25,11 +25,12 @@ allprojects {
 
 2. 在 build.gradle(app) 添加引入
 
-最新版本： [![](https://jitpack.io/v/kongzue/CameraXQRDecoderDemo.svg)](https://jitpack.io/#kongzue/CameraXQRDecoderDemo)
+最新版本： [![](https://jitpack.io/v/kongzue/CameraXQRDecoder.svg)](https://jitpack.io/#kongzue/CameraXQRDecoder)
+
 
 ```
 dependencies {
-    implementation 'com.github.kongzue:CameraXQRDecoder:1.0.0'
+    implementation 'com.github.kongzue:CameraXQRDecoder:1.0.1'
 }
 ```
 
