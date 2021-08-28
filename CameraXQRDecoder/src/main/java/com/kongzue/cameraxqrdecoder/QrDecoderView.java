@@ -2,14 +2,13 @@ package com.kongzue.cameraxqrdecoder;
 
 import static androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST;
 
-import static com.kongzue.cameraxqrdecoder.util.Utils.isNull;
+import static com.kongzue.cameraxqrdecoder.util.QRCodeUtil.isNull;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
