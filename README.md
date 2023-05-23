@@ -8,6 +8,8 @@
 
 此库基于[hotstu](https://github.com/hotstu)/**[QRCodeCameraX](https://github.com/hotstu/QRCodeCameraX)** ，由 Kotlin 改为 Java ，并加以封装。
 
+额外新增工具 BitmapQRDecoder 可直接从 bitmap 或文件读取位图并解析其中的二维码，方便实现「从相册打开二维码」的功能。
+
 当前版本仅保留 zxing 实现，不包含 firebase。
 
 ### 引入方法
@@ -30,13 +32,13 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.kongzue:CameraXQRDecoder:1.0.1'
+    implementation 'com.github.kongzue:CameraXQRDecoder:1.0.2'
 }
 ```
 
 3. Sync 即可
 
-### 使用方法
+### 扫码使用方法
 
 进入 Activity 的 xml 界面编辑添加布局：
 
@@ -74,6 +76,24 @@ qrCodeView.setKeepScan(true).start(new OnWorkFinish<String>() {
 ```
 qrCodeView.setFlashOpen(!qrCodeView.isFlashOpen());
 ```
+
+### 从 Bitmap 位图解码
+
+```java
+Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.test_decode);
+new BitmapQRDecoder(bitmap, new OnWorkFinish<String>() {
+    @Override
+    public void finish(String s) {
+        tip(s);
+    }
+    @Override
+    public void failed(Object e) {
+        tip(e.toString());
+    }
+}).start();
+```
+
+另外，BitmapQRDecoder 参数也可以是 filePath 图片文件路径，请确保自己的 app 已经获取文件读写相关权限。
 
 ### 开源协议
 
