@@ -1,4 +1,4 @@
-package com.kongzue.cameraxqrdecoder.util;
+package com.kongzue.cameraxqrdecoder.analyzer;
 
 import android.graphics.ImageFormat;
 import androidx.annotation.NonNull;
@@ -25,11 +25,11 @@ import java.util.Map;
  * @author: hotstu
  * @github: https://github.com/hotstu/QRCodeCameraX
  */
-public class QRcodeAnalyzerImpl implements ImageAnalysis.Analyzer {
+public class ZxingQRCodeAnalyzer implements ImageAnalysis.Analyzer {
     
     OnWorkFinish<String> onWorkFinish;
     
-    public QRcodeAnalyzerImpl(OnWorkFinish<String> onWorkFinish) {
+    public ZxingQRCodeAnalyzer(OnWorkFinish<String> onWorkFinish) {
         this.onWorkFinish = onWorkFinish;
         Map<DecodeHintType, Collection<BarcodeFormat>> map = new HashMap();
         map.put(DecodeHintType.POSSIBLE_FORMATS, Arrays.asList(BarcodeFormat.QR_CODE));

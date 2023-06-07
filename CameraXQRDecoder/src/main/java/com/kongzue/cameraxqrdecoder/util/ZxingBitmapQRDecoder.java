@@ -14,7 +14,7 @@ import com.kongzue.cameraxqrdecoder.interfaces.OnWorkFinish;
 
 import java.util.Map;
 
-public class BitmapQRDecoder extends AsyncTask<String, Integer, String> {
+public class ZxingBitmapQRDecoder extends AsyncTask<String, Integer, String> {
 
     public static boolean DEBUGMODE = true;
 
@@ -22,12 +22,12 @@ public class BitmapQRDecoder extends AsyncTask<String, Integer, String> {
     OnWorkFinish<String> callback;
     Map hints;
 
-    public BitmapQRDecoder(Bitmap decodeBitmap, OnWorkFinish<String> callback) {
+    public ZxingBitmapQRDecoder(Bitmap decodeBitmap, OnWorkFinish<String> callback) {
         this.decodeBitmap = decodeBitmap;
         this.callback = callback;
     }
 
-    public BitmapQRDecoder(String filePath, OnWorkFinish<String> callback) {
+    public ZxingBitmapQRDecoder(String filePath, OnWorkFinish<String> callback) {
         this.decodeBitmap = readBitmapFromFile(filePath);
         this.callback = callback;
     }
@@ -99,7 +99,7 @@ public class BitmapQRDecoder extends AsyncTask<String, Integer, String> {
         return decodeBitmap;
     }
 
-    public BitmapQRDecoder setDecodeBitmap(Bitmap decodeBitmap) {
+    public ZxingBitmapQRDecoder setDecodeBitmap(Bitmap decodeBitmap) {
         this.decodeBitmap = decodeBitmap;
         return this;
     }
@@ -108,7 +108,7 @@ public class BitmapQRDecoder extends AsyncTask<String, Integer, String> {
         return callback;
     }
 
-    public BitmapQRDecoder setCallback(OnWorkFinish<String> callback) {
+    public ZxingBitmapQRDecoder setCallback(OnWorkFinish<String> callback) {
         this.callback = callback;
         return this;
     }
@@ -117,7 +117,7 @@ public class BitmapQRDecoder extends AsyncTask<String, Integer, String> {
         return hints;
     }
 
-    public BitmapQRDecoder setHints(Map hints) {
+    public ZxingBitmapQRDecoder setHints(Map hints) {
         this.hints = hints;
         return this;
     }

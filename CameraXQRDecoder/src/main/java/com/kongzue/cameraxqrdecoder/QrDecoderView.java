@@ -2,8 +2,6 @@ package com.kongzue.cameraxqrdecoder;
 
 import static androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST;
 
-import static com.kongzue.cameraxqrdecoder.util.QRCodeUtil.isNull;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -27,12 +25,11 @@ import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.kongzue.cameraxqrdecoder.interfaces.OnWorkFinish;
-import com.kongzue.cameraxqrdecoder.util.QRcodeAnalyzerImpl;
+import com.kongzue.cameraxqrdecoder.analyzer.ZxingQRCodeAnalyzer;
 import com.kongzue.cameraxqrdecoder.util.QrDecoderPermissionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -52,7 +49,6 @@ public class QrDecoderView extends FrameLayout {
     ExecutorService cameraExecutor;
     boolean finish;
     CameraInternal cameraInternal;
-    OnWorkFinish<String> onWorkFinish;
     boolean keepScan;
     List<ImageAnalysis.Analyzer> analyzeImageInterfaceList;
 
@@ -82,30 +78,14 @@ public class QrDecoderView extends FrameLayout {
 
     public void start(OnWorkFinish<String> onWorkFinish) {
         if (QrDecoderPermissionUtil.checkPermissions(getContext(), new String[]{"android.permission.CAMERA"})) {
-            this.onWorkFinish = onWorkFinish;
             if (analyzeImageInterfaceList == null) {
                 analyzeImageInterfaceList = new ArrayList<>();
-                analyzeImageInterfaceList.add(getQRDecoderAnalyzeImageInterface());
+                analyzeImageInterfaceList.add(new ZxingQRCodeAnalyzer(onWorkFinish));
             }
             addScanQRView();
         } else {
             error(ERROR_NO_PERMISSION);
         }
-    }
-
-    public ImageAnalysis.Analyzer getQRDecoderAnalyzeImageInterface() {
-        return new QRcodeAnalyzerImpl(new OnWorkFinish<String>() {
-            @Override
-            public void finish(String result) {
-                if (!finish && !isNull(result) && !Objects.equals(oldResult, result)) {
-                    if (!keepScan) finish = true;
-                    if (onWorkFinish != null) {
-                        onWorkFinish.finish(result);
-                    }
-                    oldResult = result;
-                }
-            }
-        });
     }
 
     public boolean isFlashOpen() {

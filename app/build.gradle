@@ -10,7 +10,7 @@ android {
         minSdk 21
         targetSdk 30
         versionCode 3
-        versionName "1.0.3"
+        versionName "1.0.4"
     }
 
     buildTypes {
@@ -26,7 +26,6 @@ android {
 }
 
 dependencies {
-
     //kongzue 自家组件库，非必须
     implementation 'com.github.kongzue:BaseFramework:6.8.9.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

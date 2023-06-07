@@ -19,7 +19,7 @@ import java.util.Map;
  * @mail: myzcxhh@live.cn
  * @createTime: 2021/8/28 9:42
  */
-public class QRCodeUtil {
+public class QrEncodeUtil {
     
     public static boolean isNull(String s) {
         if (s == null || s.trim().isEmpty() || "null".equals(s) || "(null)".equals(s)) {

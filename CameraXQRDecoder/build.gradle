@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 30
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 4
+        versionName "1.0.4"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -38,4 +38,5 @@ dependencies {
     api 'com.google.zxing:core:3.5.1'
 
     api 'com.google.mlkit:text-recognition-chinese:16.0.0'
+    api 'com.google.mlkit:barcode-scanning:17.1.0'
 }

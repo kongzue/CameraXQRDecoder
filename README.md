@@ -6,7 +6,7 @@
 
 此库的目的是解决以往原始 Camera 实现的扫码再较长屏幕设备上可能出现因画面纵向被拉伸导致识别率低的问题，相比于传统的 Camera，CameraX 的优势更大，启动速度响应速度都更快。
 
-此库基于[hotstu](https://github.com/hotstu)/**[QRCodeCameraX](https://github.com/hotstu/QRCodeCameraX)** ，由 Kotlin 改为 Java ，并加以封装。
+此库基于[hotstu](https://github.com/hotstu)/**[QRCodeCameraX](https://github.com/hotstu/QRCodeCameraX)** ，由 Kotlin 改为 Java ，并加以封装，更新增加了其它实现，诸如深度学习的文字识别实现、基于深度学习的二维码识别实现，增加接口以允许更多的 Analyzer 扩展。
 
 额外新增工具 BitmapQRDecoder 可直接从 bitmap 或文件读取位图并解析其中的二维码，方便实现「从相册打开二维码」的功能。
 
@@ -38,7 +38,7 @@ dependencies {
 
 3. Sync 即可
 
-### 扫码使用方法
+### 基础扫码使用方法（基于Zxing）
 
 进入 Activity 的 xml 界面编辑添加布局：
 
@@ -77,11 +77,11 @@ qrCodeView.setKeepScan(true).start(new OnWorkFinish<String>() {
 qrCodeView.setFlashOpen(!qrCodeView.isFlashOpen());
 ```
 
-### 从 Bitmap 位图解码
+### 基础从 Bitmap 位图解码二维码（基于Zxing）
 
 ```java
 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.test_decode);
-new BitmapQRDecoder(bitmap, new OnWorkFinish<String>() {
+new ZxingBitmapQRDecoder(bitmap, new OnWorkFinish<String>() {
     @Override
     public void finish(String s) {
         tip(s);
@@ -95,7 +95,15 @@ new BitmapQRDecoder(bitmap, new OnWorkFinish<String>() {
 
 另外，BitmapQRDecoder 参数也可以是 filePath 图片文件路径，请确保自己的 app 已经获取文件读写相关权限。
 
-### 文本识别
+### 二维码生成
+
+```java
+Bitmap result = QrEncodeUtil.encode(codeString, width, height);
+```
+
+其中 codeString 为要生成的二维码内容，width为宽度，height为高度。
+
+### 基于深度识别的文本识别
 
 文本识别依赖 MLKit 实现，利用 QrDecoderView 扩展接口可实现一键接入，也可以实现同时进行二维码扫码和文字识别。
 
@@ -135,6 +143,61 @@ qrCodeView.setKeepScan(true)
                     //s 返回二维码扫描结果
             }
         });
+```
+
+### 基于深度学习的二维码识别
+
+依赖 MLKit 实现，利用 QrDecoderView 扩展接口可实现一键接入
+
+```gradle
+implementation 'com.google.mlkit:barcode-scanning:17.1.0'
+```
+
+使用：
+
+```java
+qrCodeView.setKeepScan(true)
+        .addAnalyzeImageImpl(new MLKitQRCodeAnalyzer(new OnWorkFinish<List<Barcode> barcodes>() {
+            @Override
+            public void finish(List<Barcode> barcodes) {
+                String result = barcodes.get(0).getRawValue();
+                PopTip.show(result);
+            }
+        }))
+        .start();
+```
+
+### 基于深度识别的二维码图像读取
+
+```java
+MLKitBitmapQRDecoder.decodeSingleFromBitmap(this, bitmap, new OnWorkFinish<String>() {
+    @Override
+    public void finish(String s) {
+        tip(s);
+    }
+});
+```
+
+含有多个二维码的情况：
+
+```java
+MLKitBitmapQRDecoder.decodeMultiFromBitmap(this, bitmap, new OnWorkFinish<List<Barcode>>() {
+    @Override
+    public void finish(List<Barcode> barcodes) {
+        tip(barcodes.get(0).getRawValue());
+    }
+});
+```
+
+也支持通过 Uri 直接读取照片文件：
+
+```java
+MLKitBitmapQRDecoder.decodeSingleFromUri(this, Uri.parse(uri), new OnWorkFinish<String>() {
+    @Override
+    public void finish(String s) {
+        tip(s);
+    }
+});
 ```
 
 ### 开源协议

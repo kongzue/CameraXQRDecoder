@@ -10,8 +10,9 @@ import com.kongzue.baseframework.interfaces.Layout;
 import com.kongzue.baseframework.util.JumpParameter;
 import com.kongzue.baseframework.util.OnPermissionResponseListener;
 import com.kongzue.cameraxqrdecoder.QrDecoderView;
+import com.kongzue.cameraxqrdecoder.analyzer.MLKitQRCodeAnalyzer;
+import com.kongzue.cameraxqrdecoder.analyzer.TextRecognitionAnalyzer;
 import com.kongzue.cameraxqrdecoder.interfaces.OnWorkFinish;
-import com.kongzue.cameraxqrdecoder.util.TextRecognitionImpl;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 @Layout(R.layout.activity_main)
@@ -44,7 +45,7 @@ public class MainActivity extends BaseActivity {
 
 //                //文字识别
 //                qrCodeView.setKeepScan(true)
-//                        .addAnalyzeImageImpl(new TextRecognitionImpl(new OnWorkFinish<String>() {
+//                        .addAnalyzeImageImpl(new TextRecognitionAnalyzer(new OnWorkFinish<String>() {
 //                            @Override
 //                            public void finish(String s) {
 //                                PopTip.show(s);

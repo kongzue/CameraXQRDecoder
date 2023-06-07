@@ -1,4 +1,4 @@
-package com.kongzue.cameraxqrdecoder.util;
+package com.kongzue.cameraxqrdecoder.analyzer;
 
 import android.annotation.SuppressLint;
 import android.media.Image;
@@ -18,11 +18,11 @@ import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions;
 import com.kongzue.cameraxqrdecoder.interfaces.OnWorkFinish;
 
-public class TextRecognitionImpl implements ImageAnalysis.Analyzer {
+public class TextRecognitionAnalyzer implements ImageAnalysis.Analyzer {
 
     OnWorkFinish<String> onWorkFinish;
 
-    public TextRecognitionImpl(OnWorkFinish<String> onWorkFinish) {
+    public TextRecognitionAnalyzer(OnWorkFinish<String> onWorkFinish) {
         this.onWorkFinish = onWorkFinish;
     }
 
