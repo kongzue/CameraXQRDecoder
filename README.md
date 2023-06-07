@@ -10,8 +10,6 @@
 
 额外新增工具 BitmapQRDecoder 可直接从 bitmap 或文件读取位图并解析其中的二维码，方便实现「从相册打开二维码」的功能。
 
-当前版本仅保留 zxing 实现，不包含 firebase。
-
 ### 引入方法
 
 1. 进入 build.gradle(Project) 添加 Jitpack 仓库（若没有请到 settings.gradle 文件中添加）
