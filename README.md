@@ -1,6 +1,6 @@
 # CameraXQRDecoder
 
-此库是基于 CameraX 的二维码扫描封装。
+此库是基于 CameraX 的二维码扫描封装（支持扩展）。
 
 此库仅含基础功能（扫码、闪光灯），不包含扫码框动画、相册选择识别等，如有需要请自行实现。
 
@@ -94,6 +94,48 @@ new BitmapQRDecoder(bitmap, new OnWorkFinish<String>() {
 ```
 
 另外，BitmapQRDecoder 参数也可以是 filePath 图片文件路径，请确保自己的 app 已经获取文件读写相关权限。
+
+### 文本识别
+
+文本识别依赖 MLKit 实现，利用 QrDecoderView 扩展接口可实现一键接入，也可以实现同时进行二维码扫码和文字识别。
+
+引入 MLKit：
+
+```gradle
+implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
+```
+
+使用：
+```java
+//文字识别
+qrCodeView.setKeepScan(true)
+        .addAnalyzeImageImpl(new TextRecognitionImpl(new OnWorkFinish<String>() {
+            @Override
+            public void finish(String s) {
+                PopTip.show(s);
+            }
+        }))
+        .start();
+```
+
+要和二维码组合识别：
+```java
+//文字识别
+qrCodeView.setKeepScan(true)
+        .addAnalyzeImageImpl(qrCodeView.getQRDecoderAnalyzeImageInterface())
+        .addAnalyzeImageImpl(new TextRecognitionImpl(new OnWorkFinish<String>() {
+        @Override
+        public void finish(String s) {
+                PopTip.show(s);
+        }
+        }))
+        .start(new OnWorkFinish<String>() {
+            @Override
+            public void finish(String s) {
+                    //s 返回二维码扫描结果
+            }
+        });
+```
 
 ### 开源协议
 

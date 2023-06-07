@@ -75,7 +75,4 @@ public class QRcodeAnalyzerImpl implements ImageAnalysis.Analyzer {
         }
         return mYBuffer;
     }
-    
-
-    
 }

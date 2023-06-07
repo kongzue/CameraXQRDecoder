@@ -1,8 +1,5 @@
 package com.kongzue.cameraxqrdecoderdemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,6 +11,7 @@ import com.kongzue.baseframework.util.JumpParameter;
 import com.kongzue.baseframework.util.OnPermissionResponseListener;
 import com.kongzue.cameraxqrdecoder.QrDecoderView;
 import com.kongzue.cameraxqrdecoder.interfaces.OnWorkFinish;
+import com.kongzue.cameraxqrdecoder.util.TextRecognitionImpl;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 @Layout(R.layout.activity_main)
@@ -35,12 +33,24 @@ public class MainActivity extends BaseActivity {
         requestPermission(new String[]{"android.permission.CAMERA"}, new OnPermissionResponseListener() {
             @Override
             public void onSuccess(String[] permissions) {
-                qrCodeView.setKeepScan(true).start(new OnWorkFinish<String>() {
+                //默认二维码识别
+                qrCodeView.setKeepScan(true)
+                        .start(new OnWorkFinish<String>() {
                     @Override
                     public void finish(String s) {
                         PopTip.show(s);
                     }
                 });
+
+//                //文字识别
+//                qrCodeView.setKeepScan(true)
+//                        .addAnalyzeImageImpl(new TextRecognitionImpl(new OnWorkFinish<String>() {
+//                            @Override
+//                            public void finish(String s) {
+//                                PopTip.show(s);
+//                            }
+//                        }))
+//                        .start();
             }
         
             @Override
