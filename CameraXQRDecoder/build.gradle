@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 30
-        versionCode 4
-        versionName "1.0.4"
+        versionCode 5
+        versionName "1.0.5"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -37,6 +37,6 @@ dependencies {
     api "androidx.camera:camera-extensions:1.0.0-alpha25"
     api 'com.google.zxing:core:3.5.1'
 
-    api 'com.google.mlkit:text-recognition-chinese:16.0.0'
-    api 'com.google.mlkit:barcode-scanning:17.1.0'
+    compileOnly 'com.google.mlkit:text-recognition-chinese:16.0.0'
+    compileOnly 'com.google.mlkit:barcode-scanning:17.1.0'
 }

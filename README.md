@@ -30,7 +30,7 @@ allprojects {
 
 ```
 dependencies {
-    implementation 'com.github.kongzue:CameraXQRDecoder:1.0.2'
+    implementation 'com.github.kongzue:CameraXQRDecoder:1.0.5'
 }
 ```
 
