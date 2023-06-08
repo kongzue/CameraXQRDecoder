@@ -91,7 +91,7 @@ new ZxingBitmapQRDecoder(bitmap, new OnWorkFinish<String>() {
 }).start();
 ```
 
-另外，BitmapQRDecoder 参数也可以是 filePath 图片文件路径，请确保自己的 app 已经获取文件读写相关权限。
+另外，ZxingBitmapQRDecoder 参数也可以是 filePath 图片文件路径，请确保自己的 app 已经获取文件读写相关权限。
 
 ### 二维码生成
 
